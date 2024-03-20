@@ -1,5 +1,10 @@
 {
   "private": true,
+  "scripts": {
+    "start": "rw dev",
+    "studio": "rw prisma studio",
+    "sync": "rw prisma migrate dev"
+  },
   "workspaces": {
     "packages": [
       "api",
@@ -7,8 +12,12 @@
     ]
   },
   "devDependencies": {
+    "@redwoodjs/auth-dbauth-setup": "7.1.3",
     "@redwoodjs/core": "7.1.3",
-    "@redwoodjs/project-config": "7.1.3"
+    "@redwoodjs/project-config": "7.1.3",
+    "@redwoodjs/realtime": "7.1.3",
+    "@redwoodjs/studio": "11",
+    "prettier-plugin-tailwindcss": "0.4.1"
   },
   "eslintConfig": {
     "extends": "@redwoodjs/eslint-config",
