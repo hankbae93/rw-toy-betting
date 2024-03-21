@@ -29,11 +29,12 @@ model User {
 
 model Bet {
   id          Int         @id @default(autoincrement())
-  startTime   DateTime
-  endTime     DateTime
-  isComplete  Boolean
+  title       String
+  startTime   DateTime?
+  endTime     DateTime?
+  isComplete  Boolean     @default(false)
   category    String
-  totalVolume Int
+  totalVolume Int?        @default(0)
   betMode     String
   betOptions  BetOption[]
 }
@@ -41,7 +42,7 @@ model Bet {
 model BetOption {
   id             Int             @id @default(autoincrement())
   content        String
-  average        Int
+  average        Int?            @default(0)
   Bet            Bet             @relation(fields: [betId], references: [id])
   betId          Int
   userBetOptions UserBetOption[]

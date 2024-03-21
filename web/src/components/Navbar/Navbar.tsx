@@ -1,16 +1,16 @@
-import { DocumentIcon, HandIcon } from '@heroicons/react/solid'
+import { DocumentIcon, HandIcon, LogoutIcon } from '@heroicons/react/solid'
 import { Link, routes } from '@redwoodjs/router'
 import { useAuth } from 'src/auth'
 
-const navLinks = [
-  {
-    label: 'Vote',
-    href: '/vote',
-  },
-]
-
 const Navbar = () => {
-  const { isAuthenticated, currentUser } = useAuth()
+  const { isAuthenticated, currentUser, logOut } = useAuth()
+
+  const navLinks = [
+    {
+      label: 'Bet',
+      href: routes.betList(),
+    },
+  ]
 
   return (
     <header className="padding-x absolute z-10 w-full py-8">
@@ -35,7 +35,12 @@ const Navbar = () => {
 
         <div className="font-montserrat wide:mr-24 flex gap-2 text-lg font-medium leading-normal max-lg:hidden">
           {isAuthenticated ? (
-            currentUser.email
+            <p className="flex gap-2">
+              {currentUser.email}
+              <div className="border-2 border-amber-100 bg-gray-100">
+                <LogoutIcon className="h-6 w-6" onClick={logOut} />
+              </div>
+            </p>
           ) : (
             <Link to={routes.login()}>Sign in</Link>
           )}
