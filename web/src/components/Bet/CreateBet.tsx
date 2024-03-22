@@ -25,7 +25,7 @@ const CREATE_BET_MUTATION = gql`
 
 const CreateBet = ({}: CreateBetProps) => {
   const [betOptions, setBetOptions] = useState<CreateBetInput['betOptions']>([])
-  const [betOptionContent, setBetOptionContent] = useState('')
+  const [betOptionValue, setBetOptionValue] = useState('')
   const [createBet, { loading, error }] = useMutation(CREATE_BET_MUTATION, {
     onCompleted: () => {
       toast.success('Post created')
@@ -36,35 +36,26 @@ const CreateBet = ({}: CreateBetProps) => {
     },
   })
 
-  const onChangeBetOptionContent: FormEventHandler<HTMLInputElement> = (e) => {
+  const onChangeBetOption: FormEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    setBetOptionContent(e.currentTarget.value)
+    setBetOptionValue(e.currentTarget.value)
   }
 
-  const onKeyPressBetOptionContent: KeyboardEventHandler<HTMLInputElement> = (
-    e
-  ) => {
+  const onKeyPressBetOption: KeyboardEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault()
 
     if (e.key === 'Enter' && !!e.currentTarget.value) {
-      addBetOptionContent()
+      addBetOption()
     }
   }
 
-  const addBetOptionContent = () => {
-    setBetOptions((prev) => {
-      const newArr = [...prev]
-      newArr.push({ content: betOptionContent })
-
-      console.log(newArr)
-      return newArr
-    })
-    setBetOptionContent('')
+  const addBetOption = () => {
+    setBetOptions((prev) => [...prev, { content: betOptionValue }])
+    setBetOptionValue('')
   }
 
-  const deleteBetOptionContent = (index: number) => {
-    console.log('deleteBetOptionContent')
+  const deleteBetOption = (index: number) => {
     setBetOptions((prev) => prev.filter((_, idx) => idx !== index))
   }
 
@@ -122,7 +113,7 @@ const CreateBet = ({}: CreateBetProps) => {
           <h2 className="rw-label flex items-center gap-2">
             <p className="uppercase">Create Bet Option</p>
             <PlusCircleIcon
-              onClick={addBetOptionContent}
+              onClick={addBetOption}
               className="text-black-100 cursor-pointer hover:text-blue-200"
               width={20}
             />
@@ -138,7 +129,7 @@ const CreateBet = ({}: CreateBetProps) => {
                       <p className="text-lg font-semibold">
                         {betOption.content}
                       </p>
-                      <button onClick={() => deleteBetOptionContent(index)}>
+                      <button onClick={() => deleteBetOption(index)}>
                         <XCircleIcon
                           className="cursor-pointer text-gray-600 "
                           width={20}
@@ -153,18 +144,15 @@ const CreateBet = ({}: CreateBetProps) => {
 
           <input
             className="rw-input"
-            value={betOptionContent}
-            onChange={onChangeBetOptionContent}
-            onKeyPress={onKeyPressBetOptionContent}
+            value={betOptionValue}
+            onChange={onChangeBetOption}
+            onKeyPress={onKeyPressBetOption}
             disabled={betOptions.length > 4}
           />
         </div>
 
         <div className="rw-button-group">
-          <Submit
-            // disabled={props.loading}
-            className="rw-button rw-button-blue"
-          >
+          <Submit disabled={loading} className="rw-button rw-button-blue">
             Save
           </Submit>
         </div>

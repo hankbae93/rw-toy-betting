@@ -1,5 +1,4 @@
-import React from 'react'
-import BetsCell from 'src/components/BetsCell'
+import BetsCell from 'src/components/Bet/BetsCell'
 
 const BetList = () => {
   return (

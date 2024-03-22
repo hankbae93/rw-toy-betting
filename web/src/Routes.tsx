@@ -23,6 +23,8 @@ const Routes = () => {
       <Set wrap={PageLayout}>
         <Route path="/bet" page={BetListPage} name="betList" />
         <Route path="/bet/create" page={CreateBetPage} name="createBet" />
+        <Route path="/bet/start/{id:Int}" page={BetStartPage} name="betStart" />
+        <Route path="/bet/detail/{id:Int}" page={BetDetailPage} name="betDetail" />
         <Route path="/" page={HomePage} name="home" />
       </Set>
 

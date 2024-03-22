@@ -20,6 +20,7 @@ export const schema = gql`
 
   type Query {
     bets: [Bet] @skipAuth
+    bet(id: Int!): Bet @skipAuth
   }
 
   input CreateBetInput {
@@ -33,7 +34,21 @@ export const schema = gql`
     content: String!
   }
 
+  input StartBetInput {
+    id: Int!
+    startTime: DateTime!
+    endTime: DateTime!
+  }
+
+  input BetMoneyInput {
+    id: Int!
+    optionId: Int!
+    amount: Int!
+  }
+
   type Mutation {
     createBet(input: CreateBetInput): Bet! @requireAuth
+    startBet(input: StartBetInput): Boolean! @requireAuth
+    betMoney(input: BetMoneyInput): Bet! @requireAuth
   }
 `
