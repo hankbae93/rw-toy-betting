@@ -1,4 +1,5 @@
 import Navbar from 'src/components/Navbar/Navbar'
+import { Toaster } from '@redwoodjs/web/toast'
 
 type PageLayoutProps = {
   children?: React.ReactNode
@@ -7,6 +8,7 @@ type PageLayoutProps = {
 const PageLayout = ({ children }: PageLayoutProps) => {
   return (
     <>
+      <Toaster />
       <main className="relative">
         <Navbar />
 

@@ -1,4 +1,11 @@
 export const schema = gql`
+  type User {
+    id: Int!
+    name: String
+    email: String!
+    tokenBalance: Int!
+  }
+
   type BetOption {
     id: Int!
     content: String!
@@ -16,6 +23,13 @@ export const schema = gql`
     totalVolume: Int
     betMode: String!
     betOptions: [BetOption!]
+  }
+
+  type UserBetOption {
+    id: Int!
+    amount: Int!
+    betOption: BetOption!
+    user: User!
   }
 
   type Query {
@@ -49,6 +63,6 @@ export const schema = gql`
   type Mutation {
     createBet(input: CreateBetInput): Bet! @requireAuth
     startBet(input: StartBetInput): Boolean! @requireAuth
-    betMoney(input: BetMoneyInput): Bet! @requireAuth
+    betMoney(input: BetMoneyInput): UserBetOption! @requireAuth
   }
 `

@@ -43,6 +43,7 @@ model BetOption {
   id             Int             @id @default(autoincrement())
   content        String
   average        Int?            @default(0)
+  volume         Int?            @default(0)
   Bet            Bet             @relation(fields: [betId], references: [id])
   betId          Int
   userBetOptions UserBetOption[]
@@ -50,8 +51,9 @@ model BetOption {
 
 model UserBetOption {
   id          Int       @id @default(autoincrement())
+  amount      Int
   BetOption   BetOption @relation(fields: [betOptionId], references: [id])
   betOptionId Int
-  User        User?     @relation(fields: [userId], references: [id])
-  userId      Int?
+  User        User      @relation(fields: [userId], references: [id])
+  userId      Int
 }
